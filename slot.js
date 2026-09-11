@@ -20,7 +20,6 @@
   });
 
   const spinBtn = document.getElementById('slot-spin-btn');
-  const lever = document.getElementById('slot-lever');
   const reveal = document.getElementById('slot-reveal');
   const revealCard = reveal.querySelector('.prize-reveal-card');
   const revealSymbol = document.getElementById('slot-reveal-symbol');
@@ -42,7 +41,6 @@
       r.symbolEl.textContent = randomFiller();
     });
     spinBtn.disabled = false;
-    lever.disabled = false;
   }
 
   function spinReel(reel, duration, finalSymbol, onDone) {
@@ -72,7 +70,6 @@
     if (spinning) return;
     spinning = true;
     spinBtn.disabled = true;
-    lever.disabled = true;
     reveal.classList.remove('show');
 
     const prize = window.Prizes.pick();
@@ -96,34 +93,9 @@
     if (prize.tier >= 2) window.Games.confetti(prize.tier);
     spinning = false;
     spinBtn.disabled = false;
-    lever.disabled = false;
-  }
-
-  const leverArm = lever.querySelector('.lever-arm');
-
-  function pullLever() {
-    if (spinning) return;
-    window.Games.sound.tick();
-    lever.classList.add('pulled');
-
-    // animationend es lo prolijo, pero si por lo que sea no dispara (pestaña
-    // en segundo plano, interrupción del navegador) este timeout de respaldo
-    // igual libera la palanca a los 950ms, que es cuánto dura la animación.
-    let released = false;
-    function release() {
-      if (released) return;
-      released = true;
-      leverArm.removeEventListener('animationend', release);
-      lever.classList.remove('pulled');
-    }
-    leverArm.addEventListener('animationend', release);
-    setTimeout(release, 950);
-
-    spin();
   }
 
   spinBtn.addEventListener('click', spin);
-  lever.addEventListener('click', pullLever);
   againBtn.addEventListener('click', resetReels);
 
   document.addEventListener('gameenter', (e) => {

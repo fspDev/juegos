@@ -81,9 +81,9 @@ en el cartel final). El campo `tier` (1, 2 o 3) controla qué tan grande es la
 celebración — cantidad de confetti, color del brillo y del cartel — y no hace
 falta tocarlo salvo que agregues un premio nuevo.
 
-Los dos juegos sortean el premio en el momento de jugar (al tirar de la
-palanca, o al tocar una caja), no antes: no hay forma de "ver" qué va a salir
-mirando jugar a otra persona.
+Los dos juegos sortean el premio en el momento de jugar (al girar, o al tocar
+una caja), no antes: no hay forma de "ver" qué va a salir mirando jugar a
+otra persona.
 
 ## Juegos
 

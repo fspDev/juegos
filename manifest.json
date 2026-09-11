@@ -1,0 +1,12 @@
+{
+  "name": "Juegos y Premios",
+  "short_name": "Juegos",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#180a2e",
+  "theme_color": "#180a2e",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a0b2e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Juegos y Premios</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-sparkle s1"></div>
+  <div class="bg-sparkle s2"></div>
+  <div class="bg-sparkle s3"></div>
+  <div class="bg-sparkle s4"></div>
+  <div class="bg-sparkle s5"></div>
+
+  <!-- ============ MENÚ ============ -->
+  <section id="menu-screen" class="screen active">
+    <div class="menu-title-wrap">
+      <h1 class="menu-title">¡Probá tu suerte!</h1>
+      <p class="menu-subtitle">Elegí un juego y ganá un premio</p>
+    </div>
+    <div class="menu-cards">
+      <button class="game-card game-card--slot" data-game="slot">
+        <span class="game-card-icon">🎰</span>
+        <span class="game-card-label">Tragamonedas</span>
+      </button>
+      <button class="game-card game-card--boxes" data-game="boxes">
+        <span class="game-card-icon">🎁</span>
+        <span class="game-card-label">Cajas Sorpresa</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ TRAGAMONEDAS ============ -->
+  <section id="slot-screen" class="screen">
+    <button class="btn-back" data-back>‹ Volver</button>
+    <h1 class="game-title">Tragamonedas</h1>
+
+    <div class="slot-cabinet">
+      <div class="slot-window">
+        <div class="reel" id="reel-0"><span class="reel-symbol">🍒</span></div>
+        <div class="reel" id="reel-1"><span class="reel-symbol">🍋</span></div>
+        <div class="reel" id="reel-2"><span class="reel-symbol">🔔</span></div>
+      </div>
+      <div class="slot-payline"></div>
+    </div>
+
+    <div class="slot-controls">
+      <button class="lever" id="slot-lever" aria-label="Tirar de la palanca para girar">
+        <span class="lever-base"></span>
+        <span class="lever-mount"></span>
+        <span class="lever-arm">
+          <span class="lever-rod"></span>
+          <span class="lever-knob"></span>
+          <span class="lever-spark"></span>
+        </span>
+      </button>
+      <button class="btn-spin" id="slot-spin-btn">GIRAR</button>
+    </div>
+
+    <div class="prize-reveal" id="slot-reveal">
+      <div class="prize-reveal-card">
+        <div class="prize-reveal-symbol" id="slot-reveal-symbol"></div>
+        <div class="prize-reveal-title" id="slot-reveal-title"></div>
+        <p class="prize-reveal-text">Acercate al personal del stand para retirar tu premio</p>
+        <div class="prize-reveal-actions">
+          <button class="btn-again" id="slot-again-btn">Jugar de nuevo</button>
+          <button class="btn-home" data-back>Volver al inicio</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAJAS SORPRESA ============ -->
+  <section id="boxes-screen" class="screen">
+    <button class="btn-back" data-back>‹ Volver</button>
+    <h1 class="game-title">Cajas Sorpresa</h1>
+    <p class="game-subtitle">Elegí una caja y descubrí tu premio</p>
+
+    <div class="boxes-row">
+      <button class="giftbox" data-box="0">
+        <span class="giftbox-halo"></span>
+        <span class="giftbox-shadow"></span>
+        <span class="giftbox-sparkle sp1"></span>
+        <span class="giftbox-sparkle sp2"></span>
+        <span class="giftbox-sparkle sp3"></span>
+        <span class="giftbox-beam"></span>
+        <span class="giftbox-rays"></span>
+        <span class="giftbox-burst"></span>
+        <span class="giftbox-flash"></span>
+        <span class="giftbox-body">
+          <span class="giftbox-body-shine"></span>
+          <span class="giftbox-mark">?</span>
+          <span class="giftbox-ribbon-v"></span>
+          <span class="giftbox-ribbon-h"></span>
+        </span>
+        <span class="giftbox-lid">
+          <span class="giftbox-lid-shine"></span>
+          <span class="giftbox-bow">
+            <span class="bow-loop bow-loop-l"></span>
+            <span class="bow-loop bow-loop-r"></span>
+            <span class="bow-tail bow-tail-l"></span>
+            <span class="bow-tail bow-tail-r"></span>
+            <span class="bow-knot"></span>
+          </span>
+        </span>
+        <span class="giftbox-prize"></span>
+      </button>
+      <button class="giftbox" data-box="1">
+        <span class="giftbox-halo"></span>
+        <span class="giftbox-shadow"></span>
+        <span class="giftbox-sparkle sp1"></span>
+        <span class="giftbox-sparkle sp2"></span>
+        <span class="giftbox-sparkle sp3"></span>
+        <span class="giftbox-beam"></span>
+        <span class="giftbox-rays"></span>
+        <span class="giftbox-burst"></span>
+        <span class="giftbox-flash"></span>
+        <span class="giftbox-body">
+          <span class="giftbox-body-shine"></span>
+          <span class="giftbox-mark">?</span>
+          <span class="giftbox-ribbon-v"></span>
+          <span class="giftbox-ribbon-h"></span>
+        </span>
+        <span class="giftbox-lid">
+          <span class="giftbox-lid-shine"></span>
+          <span class="giftbox-bow">
+            <span class="bow-loop bow-loop-l"></span>
+            <span class="bow-loop bow-loop-r"></span>
+            <span class="bow-tail bow-tail-l"></span>
+            <span class="bow-tail bow-tail-r"></span>
+            <span class="bow-knot"></span>
+          </span>
+        </span>
+        <span class="giftbox-prize"></span>
+      </button>
+      <button class="giftbox" data-box="2">
+        <span class="giftbox-halo"></span>
+        <span class="giftbox-shadow"></span>
+        <span class="giftbox-sparkle sp1"></span>
+        <span class="giftbox-sparkle sp2"></span>
+        <span class="giftbox-sparkle sp3"></span>
+        <span class="giftbox-beam"></span>
+        <span class="giftbox-rays"></span>
+        <span class="giftbox-burst"></span>
+        <span class="giftbox-flash"></span>
+        <span class="giftbox-body">
+          <span class="giftbox-body-shine"></span>
+          <span class="giftbox-mark">?</span>
+          <span class="giftbox-ribbon-v"></span>
+          <span class="giftbox-ribbon-h"></span>
+        </span>
+        <span class="giftbox-lid">
+          <span class="giftbox-lid-shine"></span>
+          <span class="giftbox-bow">
+            <span class="bow-loop bow-loop-l"></span>
+            <span class="bow-loop bow-loop-r"></span>
+            <span class="bow-tail bow-tail-l"></span>
+            <span class="bow-tail bow-tail-r"></span>
+            <span class="bow-knot"></span>
+          </span>
+        </span>
+        <span class="giftbox-prize"></span>
+      </button>
+    </div>
+
+    <div class="prize-reveal" id="boxes-reveal">
+      <div class="prize-reveal-card">
+        <div class="prize-reveal-symbol" id="boxes-reveal-symbol"></div>
+        <div class="prize-reveal-title" id="boxes-reveal-title"></div>
+        <p class="prize-reveal-text">Acercate al personal del stand para retirar tu premio</p>
+        <div class="prize-reveal-actions">
+          <button class="btn-again" id="boxes-again-btn">Jugar de nuevo</button>
+          <button class="btn-home" data-back>Volver al inicio</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="prizes.js"></script>
+<script src="app.js"></script>
+<script src="slot.js"></script>
+<script src="boxes.js"></script>
+<script src="kiosk.js"></script>
+</body>
+</html>

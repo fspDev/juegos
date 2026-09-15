@@ -11,7 +11,6 @@
   const revealCard = reveal.querySelector('.prize-reveal-card');
   const revealSymbol = document.getElementById('boxes-reveal-symbol');
   const revealTitle = document.getElementById('boxes-reveal-title');
-  const againBtn = document.getElementById('boxes-again-btn');
 
   let resolved = false;
 
@@ -22,7 +21,7 @@
     boxes.forEach((box) => {
       box.disabled = false;
       box.className = 'giftbox';
-      box.querySelector('.giftbox-prize').textContent = '';
+      box.querySelector('.giftbox-prize').innerHTML = '';
     });
   }
 
@@ -39,13 +38,13 @@
     setTimeout(() => {
       box.classList.remove('shaking');
       box.classList.add('opening', prize.className);
-      box.querySelector('.giftbox-prize').textContent = prize.symbol;
+      box.querySelector('.giftbox-prize').innerHTML = prize.symbol;
       window.Games.sound.win(prize.tier);
       if (prize.tier >= 2) window.Games.confetti(prize.tier);
     }, 650);
 
     setTimeout(() => {
-      revealSymbol.textContent = prize.symbol;
+      revealSymbol.innerHTML = prize.symbol;
       revealTitle.textContent = prize.label;
       revealCard.className = 'prize-reveal-card ' + prize.className;
       reveal.classList.add('show');
@@ -55,8 +54,6 @@
   boxes.forEach((box) => {
     box.addEventListener('click', () => chooseBox(box));
   });
-
-  againBtn.addEventListener('click', resetBoxes);
 
   document.addEventListener('gameenter', (e) => {
     if (e.detail === 'boxes') resetBoxes();

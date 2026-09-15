@@ -1,18 +1,17 @@
 /* ==========================================================================
-   Tragamonedas. Los tres rodillos siempre terminan en el mismo símbolo (3 en
+   Tragamonedas. Los tres rodillos siempre terminan en el mismo logo (3 en
    línea): el premio se sortea ANTES de girar con Prizes.pick(), y ese premio
-   define en qué símbolo tienen que frenar los tres rodillos. La rareza no se
-   nota en si gana o pierde (siempre gana algo), sino en qué tan seguido cae
-   cada símbolo — eso lo controla el "weight" de prizes.js.
+   define en qué logo tienen que frenar los tres rodillos. El stock y la
+   rareza de cada producto se manejan en prizes.js, no acá.
 
    Cada rodillo no es una tira que se desplaza: es más liviano y más robusto
    en un TV de stand ir cambiando el símbolo de un solo casillero a toda
    velocidad (con blur) y frenarlo de a poco, como una ruleta que decelera.
+   Mientras gira se ven letras sueltas (parpadeo, no hace falta que se lean);
+   recién al frenar aparece el logo real, ya legible.
    ========================================================================== */
 (function () {
   'use strict';
-
-  const FILLER_SYMBOLS = ['🍒', '🍋', '🔔', '🍇', '7️⃣', '🍀', '🍉'];
 
   const reels = [0, 1, 2].map((i) => {
     const el = document.getElementById('reel-' + i);
@@ -24,12 +23,12 @@
   const revealCard = reveal.querySelector('.prize-reveal-card');
   const revealSymbol = document.getElementById('slot-reveal-symbol');
   const revealTitle = document.getElementById('slot-reveal-title');
-  const againBtn = document.getElementById('slot-again-btn');
 
   let spinning = false;
 
   function randomFiller() {
-    return FILLER_SYMBOLS[Math.floor(Math.random() * FILLER_SYMBOLS.length)];
+    const fillers = window.Prizes.REEL_FILLERS;
+    return fillers[Math.floor(Math.random() * fillers.length)];
   }
 
   function resetReels() {
@@ -43,7 +42,7 @@
     spinBtn.disabled = false;
   }
 
-  function spinReel(reel, duration, finalSymbol, onDone) {
+  function spinReel(reel, duration, finalSymbolHTML, onDone) {
     const start = performance.now();
     reel.el.classList.add('spinning');
 
@@ -51,7 +50,7 @@
       const elapsed = performance.now() - start;
       const remaining = duration - elapsed;
       if (remaining <= 0) {
-        reel.symbolEl.textContent = finalSymbol;
+        reel.symbolEl.innerHTML = finalSymbolHTML;
         reel.el.classList.remove('spinning');
         reel.el.classList.add('landed');
         window.Games.sound.reelStop(reels.indexOf(reel));
@@ -86,7 +85,7 @@
 
   function revealPrize(prize) {
     window.Games.sound.win(prize.tier);
-    revealSymbol.textContent = prize.symbol;
+    revealSymbol.innerHTML = prize.symbol;
     revealTitle.textContent = prize.label;
     revealCard.className = 'prize-reveal-card ' + prize.className;
     reveal.classList.add('show');
@@ -96,7 +95,6 @@
   }
 
   spinBtn.addEventListener('click', spin);
-  againBtn.addEventListener('click', resetReels);
 
   document.addEventListener('gameenter', (e) => {
     if (e.detail === 'slot') resetReels();

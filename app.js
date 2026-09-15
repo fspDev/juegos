@@ -39,10 +39,10 @@
   }
 
   /* ---------- Confetti -----------------------------------------------------
-     La cantidad y el brillo escalan con el "tier" del premio: el Premio Mayor
-     tiene que sentirse claramente más importante que el Sorpresa. */
+     La cantidad y el brillo escalan con el "tier" del premio: la Mochila
+     Tridex Zero (más escasa) tiene que sentirse más importante que el resto. */
   const TIER_CONFETTI = { 1: 30, 2: 55, 3: 90 };
-  const CONFETTI_COLORS = ['#FFD54A', '#7FE0C9', '#8FB3FF', '#FF8FB3', '#FFFFFF'];
+  const CONFETTI_COLORS = ['#FFD54A', '#FFFFFF', '#FF8A5C', '#1B3568', '#FFB03B'];
 
   function launchConfetti(tier) {
     const container = document.getElementById('app');

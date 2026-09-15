@@ -6,14 +6,15 @@
    ========================================================================== */
 
 :root {
-  --bg-1: #180a2e;
-  --bg-2: #2c1354;
-  --panel: rgba(255, 255, 255, 0.07);
-  --panel-border: rgba(255, 255, 255, 0.14);
+  /* Pantone 172 C — naranja de marca Covidex. */
+  --bg-1: #fa4616;
+  --bg-2: #c72c0c;
+  --panel: rgba(255, 255, 255, 0.1);
+  --panel-border: rgba(255, 255, 255, 0.22);
   --text: #ffffff;
-  --text-dim: #c9bfe0;
-  --brand: #a855f7;
-  --brand-2: #6d5bff;
+  --text-dim: #ffd9c9;
+  --brand: #1b2f5e;
+  --brand-2: #14213f;
 
   --gold: #ffd54a;
   --gold-dark: #e0a72e;
@@ -100,7 +101,7 @@ button { font-family: inherit; }
   height: calc(700 * var(--px));
   top: calc(-200 * var(--px));
   left: calc(-150 * var(--px));
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 213, 74, 0.3), transparent 70%);
   animation: driftA 14s ease-in-out infinite;
 }
 
@@ -109,7 +110,7 @@ button { font-family: inherit; }
   height: calc(600 * var(--px));
   bottom: calc(-160 * var(--px));
   right: calc(-140 * var(--px));
-  background: radial-gradient(circle, rgba(109, 91, 255, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 130, 60, 0.35), transparent 70%);
   animation: driftB 16s ease-in-out infinite;
 }
 
@@ -175,7 +176,7 @@ button { font-family: inherit; }
   font-size: calc(70 * var(--px));
   font-weight: 800;
   letter-spacing: calc(-1 * var(--px));
-  background: linear-gradient(135deg, #fff, #d9c8ff);
+  background: linear-gradient(135deg, #fff, #ffe1a8);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -226,13 +227,13 @@ button { font-family: inherit; }
   font-weight: 800;
 }
 
-.game-card--slot { box-shadow: 0 calc(16 * var(--px)) calc(50 * var(--px)) rgba(168, 85, 247, 0.12); }
-.game-card--boxes { box-shadow: 0 calc(16 * var(--px)) calc(50 * var(--px)) rgba(109, 91, 255, 0.12); }
+.game-card--slot { box-shadow: 0 calc(16 * var(--px)) calc(50 * var(--px)) rgba(20, 33, 63, 0.25); }
+.game-card--boxes { box-shadow: 0 calc(16 * var(--px)) calc(50 * var(--px)) rgba(20, 33, 63, 0.25); }
 
 @media (hover: hover) and (pointer: fine) {
   .game-card:hover {
     transform: translateY(-6px);
-    border-color: var(--brand);
+    border-color: var(--gold);
   }
 }
 .game-card:active { transform: scale(0.97); transition-duration: 100ms; }
@@ -271,8 +272,8 @@ button { font-family: inherit; }
   margin-top: calc(20 * var(--px));
   padding: calc(28 * var(--px));
   border-radius: calc(44 * var(--px));
-  background: linear-gradient(160deg, #3a1c66, #1e0f3a);
-  border: calc(4 * var(--px)) solid rgba(255, 213, 74, 0.35);
+  background: linear-gradient(160deg, #223a68, #0e1a33);
+  border: calc(4 * var(--px)) solid rgba(255, 213, 74, 0.4);
   box-shadow: 0 calc(30 * var(--px)) calc(70 * var(--px)) rgba(0,0,0,0.45), inset 0 0 0 calc(2*var(--px)) rgba(255,255,255,0.05);
   animation: fadeUp 600ms var(--ease-out) 150ms both;
 }
@@ -280,7 +281,7 @@ button { font-family: inherit; }
 .slot-window {
   display: flex;
   gap: calc(20 * var(--px));
-  background: #0d0620;
+  background: #070d1c;
   border-radius: calc(26 * var(--px));
   padding: calc(20 * var(--px));
   box-shadow: inset 0 calc(10 * var(--px)) calc(30 * var(--px)) rgba(0,0,0,0.6);
@@ -291,23 +292,40 @@ button { font-family: inherit; }
   min-width: 0;
   max-width: calc(240 * var(--px));
   aspect-ratio: 1 / 1;
-  background: radial-gradient(circle at 50% 30%, #2a1650, #150a2c);
+  /* Blanco a propósito: es donde se paran los logos de marca, y así
+     cualquier color de logo (presente o futuro) se ve con buen contraste,
+     sin tener que afinar el fondo caso por caso. */
+  background: radial-gradient(circle at 50% 30%, #ffffff, #f2ede6);
   border-radius: calc(18 * var(--px));
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: calc(2 * var(--px)) solid rgba(255,255,255,0.08);
+  border: calc(2 * var(--px)) solid rgba(0,0,0,0.06);
   container-type: inline-size;
 }
 
 .reel-symbol {
   /* En cqw en vez de --px: si el rodillo se achica en una pantalla angosta
      (celular), el símbolo se achica con él y nunca se sale de la caja. */
+  width: 78cqw;
+  height: 78cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 54cqw;
   line-height: 1;
-  display: inline-block;
+  color: var(--brand);
   transition: transform 120ms ease;
+}
+
+.reel-symbol img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .reel.spinning .reel-symbol {
@@ -416,9 +434,9 @@ button { font-family: inherit; }
   height: 130cqw;
   transform: translate(-50%, -50%) rotate(0deg);
   background: conic-gradient(from 0deg,
-    rgba(168,85,247,0) 0deg, rgba(168,85,247,0.4) 30deg, rgba(168,85,247,0) 70deg,
-    rgba(109,91,255,0) 140deg, rgba(109,91,255,0.35) 175deg, rgba(109,91,255,0) 215deg,
-    rgba(168,85,247,0) 300deg, rgba(168,85,247,0.3) 335deg, rgba(168,85,247,0) 360deg);
+    rgba(255,213,74,0) 0deg, rgba(255,213,74,0.45) 30deg, rgba(255,213,74,0) 70deg,
+    rgba(255,255,255,0) 140deg, rgba(255,255,255,0.3) 175deg, rgba(255,255,255,0) 215deg,
+    rgba(255,213,74,0) 300deg, rgba(255,213,74,0.35) 335deg, rgba(255,213,74,0) 360deg);
   border-radius: 50%;
   filter: blur(calc(9 * var(--px)));
   opacity: 0.55;
@@ -469,7 +487,7 @@ button { font-family: inherit; }
   width: 88.9cqw;
   height: 56.7cqh;
   border-radius: 5.2cqw;
-  background: linear-gradient(155deg, #9757f7 0%, #7133db 42%, #4c1d95 100%);
+  background: linear-gradient(155deg, #2d4d8c 0%, #1b3568 42%, #0e1a33 100%);
   box-shadow:
     inset 0 calc(2 * var(--px)) 0 rgba(255,255,255,0.28),
     inset 0 calc(-12 * var(--px)) calc(20 * var(--px)) rgba(0,0,0,0.35),
@@ -501,7 +519,7 @@ button { font-family: inherit; }
   font-size: 34cqw;
   font-weight: 800;
   color: #fff;
-  -webkit-text-stroke: calc(2.5 * var(--px)) rgba(60, 20, 110, 0.9);
+  -webkit-text-stroke: calc(2.5 * var(--px)) rgba(14, 26, 51, 0.9);
   text-shadow: 0 calc(3 * var(--px)) calc(10 * var(--px)) rgba(0,0,0,0.5);
   z-index: 3;
   animation: markPulse 2.4s ease-in-out infinite;
@@ -541,7 +559,7 @@ button { font-family: inherit; }
   width: 97cqw;
   height: 18.7cqh;
   border-radius: 5.2cqw;
-  background: linear-gradient(155deg, #ab72ff, #7d3eea 55%, #5b21b6);
+  background: linear-gradient(155deg, #3a5da3, #24447f 55%, #14213f);
   box-shadow:
     inset 0 calc(2 * var(--px)) 0 rgba(255,255,255,0.32),
     0 calc(8 * var(--px)) calc(18 * var(--px)) rgba(0,0,0,0.35);
@@ -659,13 +677,32 @@ button { font-family: inherit; }
 
 .giftbox-prize {
   position: absolute;
-  top: 22cqh;
+  top: 18cqh;
   left: 50%;
   transform: translate(-50%, 0) scale(0);
-  font-size: 33cqw;
+  width: 60cqw;
+  min-height: 26cqh;
+  padding: 5cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Tarjeta blanca: cualquier color de logo lee bien encima, sea cual sea. */
+  background: #fff;
+  border-radius: 6cqw;
+  font-size: 30cqw;
+  color: var(--brand);
   z-index: 7;
   opacity: 0;
   filter: drop-shadow(0 calc(6 * var(--px)) calc(16 * var(--px)) rgba(0,0,0,0.45));
+}
+
+.giftbox-prize img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 /* Anticipación: tiembla y el halo se "carga" cada vez más fuerte. */
@@ -786,6 +823,12 @@ button { font-family: inherit; }
   background: conic-gradient(from 0deg, transparent, rgba(74,222,154,0.6), transparent 40%, rgba(47,184,124,0.4) 75%, transparent);
 }
 
+/* Premio de consuelo: no es uno de los 4 productos, tono neutro a propósito. */
+.giftbox.opening.tier-consolation .giftbox-body { background: linear-gradient(155deg, #f4f4f4, #d7d7d7 45%, #a8a8a8); }
+.giftbox.opening.tier-consolation .giftbox-halo {
+  background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.5), transparent 40%, rgba(200,200,200,0.35) 75%, transparent);
+}
+
 /* ============================================================
    PANEL DE REVELACIÓN DE PREMIO (compartido)
    ============================================================ */
@@ -809,7 +852,7 @@ button { font-family: inherit; }
   text-align: center;
   padding: calc(70 * var(--px)) calc(56 * var(--px));
   border-radius: calc(44 * var(--px));
-  background: linear-gradient(165deg, #2c1354, #180a2e);
+  background: linear-gradient(165deg, #1b3568, #0e1a33);
   border: calc(3 * var(--px)) solid var(--panel-border);
   box-shadow: 0 calc(30 * var(--px)) calc(80 * var(--px)) rgba(0,0,0,0.5);
   transform: scale(0.85) translateY(20px);
@@ -818,10 +861,30 @@ button { font-family: inherit; }
 .prize-reveal.show .prize-reveal-card { transform: scale(1) translateY(0); }
 
 .prize-reveal-symbol {
-  font-size: calc(140 * var(--px));
+  width: min(calc(440 * var(--px)), 64vw);
+  min-height: calc(180 * var(--px));
+  margin: 0 auto;
+  padding: calc(28 * var(--px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Tarjeta blanca: cualquier color de logo lee bien encima, sea cual sea. */
+  background: #fff;
+  border-radius: calc(32 * var(--px));
+  font-size: calc(120 * var(--px));
   line-height: 1;
+  color: var(--brand);
   animation: badgeIn 650ms var(--ease-pop) both;
   filter: drop-shadow(0 calc(10*var(--px)) calc(24*var(--px)) rgba(0,0,0,0.4));
+}
+
+.prize-reveal-symbol img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 @keyframes badgeIn {
@@ -856,7 +919,7 @@ button { font-family: inherit; }
   animation: fadeUp 500ms var(--ease-out) 320ms both;
 }
 
-.btn-again {
+.btn-home {
   font-size: calc(32 * var(--px));
   font-weight: 800;
   color: #2b1300;
@@ -867,25 +930,13 @@ button { font-family: inherit; }
   cursor: pointer;
   transition: transform 150ms var(--ease-out);
 }
-.btn-again:active { transform: scale(0.95); }
-
-.btn-home {
-  font-size: calc(26 * var(--px));
-  font-weight: 700;
-  color: var(--text-dim);
-  background: transparent;
-  border: calc(2 * var(--px)) solid var(--panel-border);
-  border-radius: 100px;
-  padding: calc(20 * var(--px)) calc(50 * var(--px));
-  cursor: pointer;
-  transition: transform 150ms var(--ease-out), color 150ms ease;
-}
 .btn-home:active { transform: scale(0.95); }
 
 /* Nivel del premio -> color del panel */
 .prize-reveal-card.tier-mayor { border-color: var(--gold); box-shadow: 0 calc(30*var(--px)) calc(90*var(--px)) rgba(255,213,74,0.35); }
 .prize-reveal-card.tier-medio { border-color: var(--silver); box-shadow: 0 calc(30*var(--px)) calc(90*var(--px)) rgba(188,212,255,0.3); }
 .prize-reveal-card.tier-comun { border-color: var(--emerald); box-shadow: 0 calc(30*var(--px)) calc(90*var(--px)) rgba(74,222,154,0.3); }
+.prize-reveal-card.tier-consolation { border-color: #e6e6e6; box-shadow: 0 calc(30*var(--px)) calc(90*var(--px)) rgba(255,255,255,0.18); }
 
 /* ---------- Confetti ---------- */
 .confetti {

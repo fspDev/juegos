@@ -7,7 +7,7 @@
    (ver README) y ya está.
    ========================================================================== */
 
-const CACHE_NAME = 'juegos-premios-v1';
+const CACHE_NAME = 'juegos-premios-v2';
 
 const ASSETS = [
   'index.html',
@@ -19,6 +19,10 @@ const ASSETS = [
   'kiosk.js',
   'manifest.json',
   'icon.svg',
+  'LOGOS/TRIDEX.svg',
+  'LOGOS/LH3.svg',
+  'LOGOS/SURFADEX.svg',
+  'LOGOS/VIODEX.svg',
 ];
 
 self.addEventListener('install', (event) => {

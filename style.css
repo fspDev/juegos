@@ -157,6 +157,7 @@ button { font-family: inherit; }
   justify-content: center;
   text-align: center;
   gap: calc(14 * var(--px));
+  padding-top: calc(90 * var(--px));
   z-index: 30;
   pointer-events: none;
 }

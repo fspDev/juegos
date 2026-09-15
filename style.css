@@ -149,20 +149,22 @@ button { font-family: inherit; }
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: calc(300 * var(--px));
+  width: 100%;
+  height: calc(380 * var(--px));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(10 * var(--px));
-  padding-top: calc(30 * var(--px));
+  text-align: center;
+  gap: calc(14 * var(--px));
   z-index: 30;
   pointer-events: none;
 }
 
 .site-logo-text {
-  font-size: calc(88 * var(--px));
+  display: block;
+  width: 100%;
+  font-size: calc(140 * var(--px));
   font-weight: 800;
   font-style: italic;
   letter-spacing: calc(-1 * var(--px));
@@ -171,7 +173,9 @@ button { font-family: inherit; }
 }
 
 .site-logo-tagline {
-  font-size: calc(26 * var(--px));
+  display: block;
+  width: 100%;
+  font-size: calc(34 * var(--px));
   font-weight: 600;
   color: rgba(255,255,255,0.9);
   text-shadow: 0 calc(2 * var(--px)) calc(8 * var(--px)) rgba(0,0,0,0.3);
@@ -187,7 +191,7 @@ button { font-family: inherit; }
 /* ---------- Botón volver ---------- */
 .btn-back {
   position: absolute;
-  top: calc(316 * var(--px));
+  top: calc(400 * var(--px));
   left: calc(36 * var(--px));
   font-size: calc(26 * var(--px));
   font-weight: 700;
@@ -208,7 +212,7 @@ button { font-family: inherit; }
 /* ============================================================
    MENÚ
    ============================================================ */
-#menu-screen { gap: calc(90 * var(--px)); padding: calc(60 * var(--px)); padding-top: calc(340 * var(--px)); }
+#menu-screen { gap: calc(90 * var(--px)); padding: calc(60 * var(--px)); padding-top: calc(420 * var(--px)); }
 
 .menu-title-wrap { text-align: center; }
 
@@ -304,7 +308,7 @@ button { font-family: inherit; }
 /* ============================================================
    TRAGAMONEDAS
    ============================================================ */
-#slot-screen { gap: calc(52 * var(--px)); padding: calc(50 * var(--px)) calc(40 * var(--px)); padding-top: calc(340 * var(--px)); }
+#slot-screen { gap: calc(52 * var(--px)); padding: calc(50 * var(--px)) calc(40 * var(--px)); padding-top: calc(420 * var(--px)); }
 
 .slot-cabinet {
   width: 100%;
@@ -463,7 +467,7 @@ button { font-family: inherit; }
 /* ============================================================
    CAJAS SORPRESA
    ============================================================ */
-#boxes-screen { gap: calc(70 * var(--px)); padding: calc(50 * var(--px)) calc(40 * var(--px)); padding-top: calc(340 * var(--px)); }
+#boxes-screen { gap: calc(70 * var(--px)); padding: calc(50 * var(--px)) calc(40 * var(--px)); padding-top: calc(420 * var(--px)); }
 
 .boxes-row {
   display: flex;

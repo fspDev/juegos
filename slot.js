@@ -21,7 +21,6 @@
   const spinBtn = document.getElementById('slot-spin-btn');
   const reveal = document.getElementById('slot-reveal');
   const revealCard = reveal.querySelector('.prize-reveal-card');
-  const revealSymbol = document.getElementById('slot-reveal-symbol');
   const revealTitle = document.getElementById('slot-reveal-title');
 
   let spinning = false;
@@ -96,7 +95,6 @@
   }
 
   function revealPrize(prize) {
-    revealSymbol.innerHTML = prize.symbol;
     revealTitle.textContent = prize.label;
     revealCard.className = 'prize-reveal-card ' + prize.className;
     reveal.classList.add('show');

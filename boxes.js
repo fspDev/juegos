@@ -9,7 +9,6 @@
   const boxes = Array.from(document.querySelectorAll('.giftbox'));
   const reveal = document.getElementById('boxes-reveal');
   const revealCard = reveal.querySelector('.prize-reveal-card');
-  const revealSymbol = document.getElementById('boxes-reveal-symbol');
   const revealTitle = document.getElementById('boxes-reveal-title');
 
   let resolved = false;
@@ -44,7 +43,6 @@
     }, 650);
 
     setTimeout(() => {
-      revealSymbol.innerHTML = prize.symbol;
       revealTitle.textContent = prize.label;
       revealCard.className = 'prize-reveal-card ' + prize.className;
       reveal.classList.add('show');

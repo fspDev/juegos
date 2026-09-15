@@ -161,9 +161,9 @@
     return Object.assign({}, stock);
   }
 
-  // Caras posibles del rodillo mientras gira (parpadeo rápido, no tiene que
-  // ser legible). Cuando el rodillo frena, se reemplaza por el logo real.
-  const REEL_FILLERS = ['T', 'L', 'S', 'V', '🎁'];
+  // Caras posibles del rodillo mientras gira: siempre logos reales (con blur
+  // de movimiento, no hace falta que se lean), nunca letras sueltas.
+  const REEL_FILLERS = PRIZE_DEFS.map((def) => def.logoHTML).concat(CONSOLATION.logoHTML);
 
   window.Prizes = {
     pick: pickPrize,

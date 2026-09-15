@@ -31,13 +31,16 @@
     return fillers[Math.floor(Math.random() * fillers.length)];
   }
 
+  const slotWindow = document.querySelector('.slot-window');
+
   function resetReels() {
     spinning = false;
     reveal.classList.remove('show');
     revealCard.className = 'prize-reveal-card';
+    slotWindow.classList.remove('win');
     reels.forEach((r) => {
       r.el.classList.remove('spinning', 'landed');
-      r.symbolEl.textContent = randomFiller();
+      r.symbolEl.innerHTML = randomFiller();
     });
     spinBtn.disabled = false;
   }
@@ -58,7 +61,7 @@
         onDone();
         return;
       }
-      reel.symbolEl.textContent = randomFiller();
+      reel.symbolEl.innerHTML = randomFiller();
       const wait = remaining < 350 ? 130 : remaining < 750 ? 85 : 55;
       setTimeout(step, wait);
     }
@@ -78,18 +81,27 @@
     reels.forEach((reel, i) => {
       spinReel(reel, durations[i], prize.symbol, () => {
         done++;
-        if (done === reels.length) revealPrize(prize);
+        if (done === reels.length) onReelsLanded(prize);
       });
     });
   }
 
-  function revealPrize(prize) {
+  function onReelsLanded(prize) {
+    // Los 3 rodillos ya muestran el logo ganador alineados: dejamos que se
+    // vea un momento (con la línea de pago brillando) antes de tapar todo
+    // con la tarjeta de premio.
     window.Games.sound.win(prize.tier);
+    slotWindow.classList.add('win');
+    setTimeout(() => revealPrize(prize), 1300);
+  }
+
+  function revealPrize(prize) {
     revealSymbol.innerHTML = prize.symbol;
     revealTitle.textContent = prize.label;
     revealCard.className = 'prize-reveal-card ' + prize.className;
     reveal.classList.add('show');
     if (prize.tier >= 2) window.Games.confetti(prize.tier);
+    slotWindow.classList.remove('win');
     spinning = false;
     spinBtn.disabled = false;
   }

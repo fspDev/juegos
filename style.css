@@ -150,14 +150,16 @@ button { font-family: inherit; }
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(380 * var(--px));
+  /* El alto llega justo hasta donde arranca el título de la pantalla
+     principal: así el logo queda centrado entre el borde de arriba y ese
+     texto, sin depender de paddings a ojo. */
+  height: calc(772 * var(--px));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   gap: calc(14 * var(--px));
-  padding-top: calc(90 * var(--px));
   z-index: 30;
   pointer-events: none;
 }

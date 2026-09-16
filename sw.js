@@ -7,7 +7,7 @@
    (ver README) y ya está.
    ========================================================================== */
 
-const CACHE_NAME = 'juegos-premios-v2';
+const CACHE_NAME = 'juegos-premios-v4';
 
 const ASSETS = [
   'index.html',

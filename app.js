@@ -21,6 +21,30 @@
     currentScreen = name;
   }
 
+  /* ---------- Posición del logo --------------------------------------------
+     En el menú el logo, el título y las tarjetas se leen como un solo bloque y
+     tienen que quedar centrados en la pantalla completa. El título y las
+     tarjetas ya caen solos en su lugar (el padding-top del menú reserva la
+     franja del logo); lo único que hay que calcular es cuánto baja el logo,
+     que es el espacio libre que el centrado dejó por encima del contenido.
+     Se mide en vez de hardcodearse: si mañana se agrega una tercera tarjeta,
+     el bloque se recentra solo.
+     Ese mismo valor queda publicado en :root y lo usan las pantallas de juego
+     para arrancar su contenido más abajo, así el logo NO se mueve al entrar a
+     un juego: está en el mismo lugar en las tres pantallas. */
+  const menuContent = document.querySelector('.menu-content');
+
+  function layoutHeader() {
+    const padTop = parseFloat(getComputedStyle(screens.menu).paddingTop) || 0;
+    const shift = Math.max(0, menuContent.offsetTop - padTop);
+    document.documentElement.style.setProperty('--header-shift', shift + 'px');
+  }
+
+  window.addEventListener('resize', layoutHeader);
+  window.addEventListener('orientationchange', layoutHeader);
+  window.addEventListener('load', layoutHeader);
+  layoutHeader();
+
   document.querySelectorAll('.game-card').forEach((btn) => {
     btn.addEventListener('click', () => {
       const game = btn.dataset.game;

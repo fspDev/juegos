@@ -26,25 +26,37 @@
   <!-- TODO: cuando llegue un COVIDEX.svg válido, reemplazar los dos spans
        de acá abajo por: <img class="site-logo" src="LOGOS/COVIDEX.svg" alt="Covidex"> -->
   <header class="site-header">
-    <span class="site-logo-text">Covidex</span>
-    <span class="site-logo-tagline">Seguridad donde más se necesita</span>
+    <div class="site-header-inner">
+      <span class="site-logo-text">Covidex</span>
+      <span class="site-logo-tagline">Seguridad donde más se necesita</span>
+    </div>
   </header>
 
   <!-- ============ MENÚ ============ -->
   <section id="menu-screen" class="screen active">
-    <div class="menu-title-wrap">
-      <h1 class="menu-title">¡Probá tu suerte!</h1>
-      <p class="menu-subtitle">Elegí un juego y ganá un premio</p>
-    </div>
-    <div class="menu-cards">
-      <button class="game-card game-card--slot" data-game="slot">
-        <span class="game-card-icon">🎰</span>
-        <span class="game-card-label">Tragamonedas</span>
-      </button>
-      <button class="game-card game-card--boxes" data-game="boxes">
-        <span class="game-card-icon">🎁</span>
-        <span class="game-card-label">Cajas Sorpresa</span>
-      </button>
+    <div class="menu-content">
+      <div class="menu-title-wrap">
+        <h1 class="menu-title">¡Probá tu suerte!</h1>
+        <p class="menu-subtitle">Jugá y ganá</p>
+      </div>
+      <div class="menu-cards">
+        <button class="game-card game-card--slot" data-game="slot">
+          <span class="game-card-shine"></span>
+          <span class="game-card-icon-badge">
+            <span class="game-card-icon">🎰</span>
+          </span>
+          <span class="game-card-label">Tragamonedas</span>
+          <span class="game-card-arrow">›</span>
+        </button>
+        <button class="game-card game-card--boxes" data-game="boxes">
+          <span class="game-card-shine"></span>
+          <span class="game-card-icon-badge">
+            <span class="game-card-icon">🎁</span>
+          </span>
+          <span class="game-card-label">Cajas Sorpresa</span>
+          <span class="game-card-arrow">›</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -68,6 +80,7 @@
 
     <div class="prize-reveal" id="slot-reveal">
       <div class="prize-reveal-card">
+        <div class="prize-reveal-logo" id="slot-reveal-logo"></div>
         <div class="prize-reveal-title" id="slot-reveal-title"></div>
         <p class="prize-reveal-text">Acercate al personal del stand para retirar tu premio</p>
         <div class="prize-reveal-actions">
@@ -172,6 +185,7 @@
 
     <div class="prize-reveal" id="boxes-reveal">
       <div class="prize-reveal-card">
+        <div class="prize-reveal-logo" id="boxes-reveal-logo"></div>
         <div class="prize-reveal-title" id="boxes-reveal-title"></div>
         <p class="prize-reveal-text">Acercate al personal del stand para retirar tu premio</p>
         <div class="prize-reveal-actions">

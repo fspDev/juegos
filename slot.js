@@ -21,6 +21,7 @@
   const spinBtn = document.getElementById('slot-spin-btn');
   const reveal = document.getElementById('slot-reveal');
   const revealCard = reveal.querySelector('.prize-reveal-card');
+  const revealLogo = document.getElementById('slot-reveal-logo');
   const revealTitle = document.getElementById('slot-reveal-title');
 
   let spinning = false;
@@ -95,7 +96,8 @@
   }
 
   function revealPrize(prize) {
-    revealTitle.textContent = prize.label;
+    revealLogo.innerHTML = prize.symbol;
+    revealTitle.textContent = prize.text;
     revealCard.className = 'prize-reveal-card ' + prize.className;
     reveal.classList.add('show');
     if (prize.tier >= 2) window.Games.confetti(prize.tier);

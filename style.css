@@ -72,6 +72,10 @@ button { font-family: inherit; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* Por encima del logo (z-index 30): las pantallas son transparentes, así
+     que el logo se sigue viendo — pero la tarjeta de premio, que sí pinta,
+     lo tapa en vez de quedar atravesada por él. */
+  z-index: 40;
   opacity: 0;
   pointer-events: none;
   transform: scale(0.97);
@@ -144,42 +148,89 @@ button { font-family: inherit; }
   50% { opacity: 0.9; transform: scale(1.4); }
 }
 
-/* ---------- Header con el logo de Covidex (fijo, en todas las pantallas) ---------- */
+/* ---------- Header con el logo de Covidex (fijo, en todas las pantallas) ----------
+   Centrado *dentro de su propia franja* (top: 0 a --header-h), así el logo
+   queda a la misma distancia del borde superior que del contenido de abajo:
+   nada de padding-top extra empujándolo para un lado. */
+/* Alto de la franja del logo, en px de diseño (sin unidad: se multiplica por
+   --px como el resto de las medidas). */
+:root { --header-h: 430; }
+
+/* --header-shift lo calcula app.js: es lo que hay que bajar el logo para que
+   en el menú el bloque entero (logo + título + tarjetas) quede centrado en la
+   pantalla. El logo queda en ESA misma posición en las tres pantallas — no se
+   mueve al entrar a un juego — así que las pantallas de juego arrancan su
+   contenido más abajo, sumando el mismo valor a su padding-top. */
 .site-header {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(380 * var(--px));
+  height: calc(var(--header-h) * var(--px));
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: calc(14 * var(--px));
-  padding-top: calc(90 * var(--px));
   z-index: 30;
   pointer-events: none;
+  transform: translateY(var(--header-shift, 0px));
+}
+
+.site-header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(18 * var(--px));
+  width: 100%;
+  animation: logoIn 800ms var(--ease-out) both;
+}
+
+/* Resplandor detrás del logo: en un TV de 55" visto de lejos, el logo tiene
+   que ser lo primero que se note — este halo lo separa del fondo naranja
+   y lo vuelve el punto focal antes que cualquier otra cosa en pantalla. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(760 * var(--px));
+  height: calc(420 * var(--px));
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.22), transparent 68%);
+  filter: blur(calc(4 * var(--px)));
+  animation: headerGlowPulse 4.5s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes headerGlowPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes logoIn {
+  from { opacity: 0; transform: translateY(calc(-16 * var(--px))) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .site-logo-text {
   display: block;
   width: 100%;
-  font-size: calc(140 * var(--px));
+  font-size: calc(184 * var(--px));
   font-weight: 800;
   font-style: italic;
   letter-spacing: calc(-1 * var(--px));
   color: #fff;
-  text-shadow: 0 calc(4 * var(--px)) calc(14 * var(--px)) rgba(0,0,0,0.35);
+  text-shadow: 0 calc(6 * var(--px)) calc(22 * var(--px)) rgba(0,0,0,0.4);
 }
 
 .site-logo-tagline {
   display: block;
   width: 100%;
-  font-size: calc(34 * var(--px));
+  font-size: calc(38 * var(--px));
   font-weight: 600;
   color: rgba(255,255,255,0.9);
   text-shadow: 0 calc(2 * var(--px)) calc(8 * var(--px)) rgba(0,0,0,0.3);
+  letter-spacing: calc(0.5 * var(--px));
 }
 
 .site-logo {
@@ -192,7 +243,7 @@ button { font-family: inherit; }
 /* ---------- Botón volver ---------- */
 .btn-back {
   position: absolute;
-  top: calc(400 * var(--px));
+  top: calc((var(--header-h) + 20) * var(--px) + var(--header-shift, 0px));
   left: calc(36 * var(--px));
   font-size: calc(26 * var(--px));
   font-weight: 700;
@@ -213,19 +264,42 @@ button { font-family: inherit; }
 /* ============================================================
    MENÚ
    ============================================================ */
-#menu-screen { gap: calc(90 * var(--px)); padding: calc(60 * var(--px)); padding-top: calc(420 * var(--px)); }
+#menu-screen {
+  padding: calc(60 * var(--px));
+  /* El padding-top reserva la franja del logo; el de abajo va en 0 para que
+     el espacio libre que reparte el centrado quede igual arriba y abajo del
+     bloque completo (logo + título + tarjetas). */
+  padding-top: calc((var(--header-h) + 40) * var(--px));
+  padding-bottom: 0;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(90 * var(--px));
+  width: 100%;
+}
 
 .menu-title-wrap { text-align: center; }
 
 .menu-title {
+  position: relative;
+  display: inline-block;
   font-size: calc(70 * var(--px));
   font-weight: 800;
   letter-spacing: calc(-1 * var(--px));
-  background: linear-gradient(135deg, #fff, #ffe1a8);
+  background: linear-gradient(100deg, #fff 30%, #ffe1a8 45%, #fff 60%);
+  background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: fadeUp 700ms var(--ease-out) both;
+  animation: fadeUp 700ms var(--ease-out) both, titleShine 5s ease-in-out 900ms infinite;
+}
+
+@keyframes titleShine {
+  0%, 30% { background-position: 100% 0; }
+  70%, 100% { background-position: -60% 0; }
 }
 
 .menu-subtitle {
@@ -244,33 +318,85 @@ button { font-family: inherit; }
 }
 
 .game-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(36 * var(--px));
+  width: 100%;
+  padding: calc(38 * var(--px)) calc(48 * var(--px));
+  border-radius: calc(40 * var(--px));
+  border: calc(2 * var(--px)) solid var(--panel-border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  isolation: isolate;
+  animation: cardIn 640ms var(--ease-pop) both;
+  transition: transform 220ms var(--ease-out), border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.game-card:nth-child(2) { animation-delay: 130ms; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(calc(30 * var(--px))) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Barrido de brillo que cruza la tarjeta cada tanto, como invitación a tocar. */
+.game-card-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.28) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: cardShineSweep 5s ease-in-out 1.2s infinite;
+  pointer-events: none;
+}
+.game-card:nth-child(2) .game-card-shine { animation-delay: 2.7s; }
+
+@keyframes cardShineSweep {
+  0%, 70% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+.game-card-icon-badge {
+  position: relative;
+  z-index: 1;
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: calc(36 * var(--px));
-  width: 100%;
-  padding: calc(46 * var(--px)) calc(56 * var(--px));
-  border-radius: calc(40 * var(--px));
-  border: calc(2 * var(--px)) solid var(--panel-border);
-  background: var(--panel);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  text-align: center;
-  animation: fadeUp 700ms var(--ease-out) 260ms both;
-  transition: transform 180ms var(--ease-out), border-color 180ms ease, box-shadow 180ms ease;
+  width: calc(140 * var(--px));
+  height: calc(140 * var(--px));
+  border-radius: calc(32 * var(--px));
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.28), rgba(255,255,255,0.05));
+  box-shadow: inset 0 0 0 calc(2 * var(--px)) rgba(255,255,255,0.2), 0 calc(10 * var(--px)) calc(24 * var(--px)) rgba(0,0,0,0.25);
 }
 
-.game-card:nth-child(2) { animation-delay: 380ms; }
-
 .game-card-icon {
-  font-size: calc(96 * var(--px));
+  font-size: calc(78 * var(--px));
   filter: drop-shadow(0 calc(6 * var(--px)) calc(14 * var(--px)) rgba(0,0,0,0.35));
   animation: floatY 3.6s ease-in-out infinite;
+  display: block;
 }
 
 .game-card-label {
-  font-size: calc(46 * var(--px));
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  font-size: calc(44 * var(--px));
   font-weight: 800;
+}
+
+.game-card-arrow {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  font-size: calc(56 * var(--px));
+  font-weight: 800;
+  color: rgba(255,255,255,0.55);
+  transition: transform 220ms var(--ease-out), color 220ms ease;
 }
 
 .game-card--slot { box-shadow: 0 calc(16 * var(--px)) calc(50 * var(--px)) rgba(20, 33, 63, 0.25); }
@@ -278,11 +404,13 @@ button { font-family: inherit; }
 
 @media (hover: hover) and (pointer: fine) {
   .game-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-8px) scale(1.015);
     border-color: var(--gold);
+    box-shadow: 0 calc(22 * var(--px)) calc(60 * var(--px)) rgba(0,0,0,0.35), 0 0 0 calc(2 * var(--px)) rgba(255,213,74,0.3);
   }
+  .game-card:hover .game-card-arrow { transform: translateX(calc(8 * var(--px))); color: var(--gold); }
 }
-.game-card:active { transform: scale(0.97); transition-duration: 100ms; }
+.game-card:active { transform: scale(0.965); transition-duration: 100ms; }
 
 @keyframes floatY {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -293,7 +421,6 @@ button { font-family: inherit; }
    TÍTULOS DE JUEGO (compartido slot / cajas)
    ============================================================ */
 .game-title {
-  margin-top: calc(60 * var(--px));
   font-size: calc(56 * var(--px));
   font-weight: 800;
   animation: fadeUp 500ms var(--ease-out) both;
@@ -309,13 +436,20 @@ button { font-family: inherit; }
 /* ============================================================
    TRAGAMONEDAS
    ============================================================ */
-#slot-screen { gap: calc(52 * var(--px)); padding: calc(50 * var(--px)) calc(40 * var(--px)); padding-top: calc(420 * var(--px)); }
+/* justify-content: flex-start (en vez del center que heredan) para que el
+   juego arranque pegado abajo del logo. Si quedara centrado en el espacio
+   sobrante se iría al fondo de la pantalla, lejos del logo. */
+#slot-screen {
+  gap: calc(52 * var(--px));
+  padding: calc(50 * var(--px)) calc(40 * var(--px));
+  padding-top: calc((var(--header-h) + 30) * var(--px) + var(--header-shift, 0px));
+  justify-content: flex-start;
+}
 
 .slot-cabinet {
   width: 100%;
   max-width: calc(980 * var(--px));
   box-sizing: border-box;
-  margin-top: calc(20 * var(--px));
   padding: calc(28 * var(--px));
   border-radius: calc(44 * var(--px));
   background: linear-gradient(160deg, #223a68, #0e1a33);
@@ -468,7 +602,12 @@ button { font-family: inherit; }
 /* ============================================================
    CAJAS SORPRESA
    ============================================================ */
-#boxes-screen { gap: calc(70 * var(--px)); padding: calc(50 * var(--px)) calc(40 * var(--px)); padding-top: calc(420 * var(--px)); }
+#boxes-screen {
+  gap: calc(70 * var(--px));
+  padding: calc(50 * var(--px)) calc(40 * var(--px));
+  padding-top: calc((var(--header-h) + 30) * var(--px) + var(--header-shift, 0px));
+  justify-content: flex-start;
+}
 
 .boxes-row {
   display: flex;
@@ -641,7 +780,7 @@ button { font-family: inherit; }
     0 calc(8 * var(--px)) calc(18 * var(--px)) rgba(0,0,0,0.35);
   overflow: hidden;
   transform-origin: 18% 100%;
-  transition: transform 580ms var(--ease-pop), opacity 380ms ease 300ms;
+  transition: transform 850ms var(--ease-pop), opacity 500ms ease 400ms;
   z-index: 4;
 }
 
@@ -791,11 +930,11 @@ button { font-family: inherit; }
   75% { transform: translateX(calc(4 * var(--px))) rotate(2.5deg); }
 }
 .giftbox.shaking .giftbox-halo {
-  animation: haloCharge 650ms ease-in both;
+  animation: haloCharge 1500ms ease-in both;
 }
 @keyframes haloCharge {
   0% { opacity: 0.5; filter: blur(calc(9 * var(--px))); transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-  100% { opacity: 1; filter: blur(calc(4 * var(--px))); transform: translate(-50%, -50%) scale(1.4) rotate(160deg); }
+  100% { opacity: 1; filter: blur(calc(4 * var(--px))); transform: translate(-50%, -50%) scale(1.5) rotate(400deg); }
 }
 .giftbox.shaking .giftbox-mark {
   animation: markPulse 260ms ease-in-out infinite;
@@ -812,7 +951,7 @@ button { font-family: inherit; }
 }
 
 .giftbox.opening .giftbox-flash {
-  animation: flashPop 480ms ease-out both;
+  animation: flashPop 650ms ease-out both;
 }
 @keyframes flashPop {
   0% { opacity: 0; }
@@ -821,7 +960,7 @@ button { font-family: inherit; }
 }
 
 .giftbox.opening .giftbox-rays {
-  animation: raysBurst 900ms ease-out both;
+  animation: raysBurst 1300ms ease-out both;
 }
 @keyframes raysBurst {
   0% { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(0deg); }
@@ -830,7 +969,7 @@ button { font-family: inherit; }
 }
 
 .giftbox.opening .giftbox-burst {
-  animation: burstPop 620ms var(--ease-out) both;
+  animation: burstPop 900ms var(--ease-out) both;
 }
 @keyframes burstPop {
   0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
@@ -839,7 +978,7 @@ button { font-family: inherit; }
 }
 
 .giftbox.opening .giftbox-beam {
-  animation: beamRise 900ms var(--ease-out) both;
+  animation: beamRise 1300ms var(--ease-out) both;
 }
 @keyframes beamRise {
   0% { height: 0; opacity: 0; }
@@ -848,7 +987,7 @@ button { font-family: inherit; }
 }
 
 .giftbox.opening .giftbox-prize {
-  animation: prizePop 620ms 180ms var(--ease-pop) both;
+  animation: prizePop 900ms 520ms var(--ease-pop) both;
 }
 @keyframes prizePop {
   0% { transform: translate(-50%, 30%) scale(0) rotate(-16deg); opacity: 0; }
@@ -857,7 +996,7 @@ button { font-family: inherit; }
 }
 
 .giftbox.opening .giftbox-halo {
-  animation: haloOpenGlow 1s ease-out both;
+  animation: haloOpenGlow 1500ms ease-out both;
 }
 @keyframes haloOpenGlow {
   0% { opacity: 1; filter: blur(calc(4 * var(--px))); }
@@ -926,10 +1065,9 @@ button { font-family: inherit; }
 .prize-reveal-card {
   width: min(calc(820 * var(--px)), 88vw);
   text-align: center;
-  padding: calc(70 * var(--px)) calc(56 * var(--px));
+  padding: calc(64 * var(--px)) calc(56 * var(--px));
   border-radius: calc(44 * var(--px));
-  /* Naranja oscuro, misma gama que el fondo de la app (no azul): el logo
-     del premio ya se vio en el juego, así que acá no se repite. */
+  /* Naranja oscuro, misma gama que el fondo de la app (no azul). */
   background: linear-gradient(165deg, #7a1f09, #430f04);
   border: calc(3 * var(--px)) solid var(--panel-border);
   box-shadow: 0 calc(30 * var(--px)) calc(80 * var(--px)) rgba(0,0,0,0.5);
@@ -944,10 +1082,40 @@ button { font-family: inherit; }
   100% { opacity: 1; transform: scale(1) rotate(0); }
 }
 
-.prize-reveal-title {
-  font-size: calc(64 * var(--px));
-  font-weight: 800;
+/* Logo de la marca del premio: tarjeta blanca (como en el rodillo/caja) para
+   que cualquier color de logo lea bien, sin repetir el nombre de la marca en
+   texto — eso lo dice el logo solo. */
+.prize-reveal-logo {
+  width: calc(230 * var(--px));
+  height: calc(230 * var(--px));
+  margin: 0 auto calc(34 * var(--px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 30%, #ffffff, #f2ede6);
+  border-radius: calc(36 * var(--px));
+  padding: calc(28 * var(--px));
+  font-size: calc(110 * var(--px));
+  line-height: 1;
+  box-shadow: 0 calc(16 * var(--px)) calc(36 * var(--px)) rgba(0,0,0,0.35), inset 0 0 0 calc(2 * var(--px)) rgba(0,0,0,0.06);
   animation: badgeIn 650ms var(--ease-pop) both;
+}
+.prize-reveal-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.prize-reveal-title {
+  font-size: calc(46 * var(--px));
+  font-weight: 800;
+  max-width: calc(640 * var(--px));
+  margin: 0 auto;
+  line-height: 1.3;
+  animation: fadeUp 550ms var(--ease-out) 120ms both;
 }
 
 .prize-reveal-text {
@@ -997,7 +1165,8 @@ button { font-family: inherit; }
   opacity: 0.95;
   border-radius: calc(3 * var(--px));
   animation: confettiFall linear forwards;
-  z-index: 20;
+  /* Por encima de las pantallas (40): el confeti cae delante de la tarjeta. */
+  z-index: 50;
 }
 
 @keyframes confettiFall {

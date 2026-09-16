@@ -71,26 +71,46 @@ Además existe el **Premio Sorpresa**: no es uno de los 4 productos, no
 descuenta stock, y se entrega aparte (lo que el stand tenga previsto para
 eso). Es el resultado cuando no tocó ninguno de los 4 productos.
 
-**El sorteo no usa un % fijo, usa el stock que va quedando.** Cada producto
-"pesa" lo que le queda: si a Tridex Zero le quedan 30 mochilas, pesa 30. El
-Premio Sorpresa pesa siempre 650 (la suma del stock inicial de los 4
-productos), fijo. Como al principio el stock restante total también suma
-650, el primer sorteo del evento es ~50% algún producto / ~50% premio
-sorpresa — y a medida que se entregan productos y el stock baja, el % de
-premio sorpresa sube solo (el peso de los productos baja, el del premio
-sorpresa no se mueve). Es un colchón automático para que el stock alcance
-para los dos días sin que nadie tenga que estar reajustando números a mano.
+**De cada 4 personas que juegan, 3 se llevan un producto y 1 se lleva el
+Premio Sorpresa.** Ese 75% es fijo y no se desgasta con el correr del día: el
+último visitante tiene la misma chance que el primero. Está calibrado para los
+300 visitantes por día que se esperan.
 
-Cuando un producto llega a 0 stock, deja de poder salir — ni en el
-tragamonedas ni en las cajas.
+Qué producto toca, dentro de ese 75%, es proporcional a lo que queda de cada
+uno: uno con 150 unidades sale 3 veces más seguido que uno con 50. Como cada
+unidad en existencia tiene la misma chance, los 4 productos se gastan al mismo
+ritmo porcentual — ninguno se termina mucho antes que otro. Si igual uno se
+agota, deja de salir y su parte se reparte entre los demás; el 75% total no se
+mueve.
+
+**El día 1 sólo puede usar la mitad del stock**, la otra mitad queda congelada
+para el día 2. Si el día 1 viene mucha más gente de la esperada y se agota su
+mitad, a partir de ahí todos se llevan Premio Sorpresa — pero el día 2 arranca
+con su mitad intacta. El día 2 puede usar todo lo que haya quedado (su mitad
+más lo que sobró del día 1).
+
+Con 300 personas por día esto reparte unos **225 productos por día** (~450 en
+los dos días) y deja ~200 unidades de colchón:
+
+| Premio | Por día | En los dos días |
+|-----------------------|:-------:|:---------------:|
+| Mochila (Tridex Zero) | ~17 | ~34 |
+| Botella (LH3) | ~52 | ~104 |
+| Cooler (Surfadex) | ~52 | ~104 |
+| Lapicera (Viodex) | ~104 | ~208 |
+| **Premio Sorpresa** | ~75 | ~150 |
+
+**El cambio de día es automático:** el equipo mira la fecha y pasa solo al día
+2 cuando cambia el día del calendario. No hay que tocar nada.
 
 **El stock se guarda en el equipo** (localStorage del navegador) y sobrevive
 a que se reinicie o se cierre Chrome. Para el staff, con la consola del
 navegador abierta (F12) en la app:
 
 ```js
-Prizes.getRemaining()   // cuánto queda de cada producto
-Prizes.resetStock()     // vuelve todo a 50 / 150 / 150 / 300 (usar al empezar el día 1)
+Prizes.getRemaining()   // qué queda de cada producto y en qué día está
+Prizes.resetStock()     // stock lleno y vuelta al día 1 (usar al empezar el día 1)
+Prizes.startDay(2)      // forzar el día 2 a mano, si hiciera falta
 ```
 
 ### Para ajustar los números
@@ -100,8 +120,8 @@ Todo se edita en `prizes.js`:
 - **Cambiar el stock de un producto:** los números en `INITIAL_STOCK`, arriba
   del todo. Ojo: si el equipo ya arrancó el evento, el stock guardado manda
   sobre estos números hasta que alguien corra `Prizes.resetStock()`.
-- **Cambiar el punto de partida del % de premio sorpresa** (no tiene que ser
-  50/50): ajustá `NO_PREMIO_WEIGHT`.
+- **Cambiar cuánta gente se lleva producto:** `PRODUCT_SHARE` (0.75 = 3 de
+  cada 4).
 - **Cambiar nombre/producto de un premio:** `brand` y `product` en cada
   entrada de `PRIZE_DEFS`.
 - **Cambiar el logo:** `logoHTML` — apunta a un archivo de `LOGOS/`. Para

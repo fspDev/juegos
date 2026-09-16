@@ -71,16 +71,16 @@ Además existe el **Premio Sorpresa**: no es uno de los 4 productos, no
 descuenta stock, y se entrega aparte (lo que el stand tenga previsto para
 eso). Es el resultado cuando no tocó ninguno de los 4 productos.
 
-**De cada 4 personas que juegan, 3 se llevan un producto y 1 se lleva el
-Premio Sorpresa.** Ese 75% es fijo y no se desgasta con el correr del día: el
+**De cada 5 personas que juegan, 4 se llevan un producto y 1 se lleva el
+Premio Sorpresa.** Ese 80% es fijo y no se desgasta con el correr del día: el
 último visitante tiene la misma chance que el primero. Está calibrado para los
-300 visitantes por día que se esperan.
+500 visitantes del evento (~250 por día).
 
-Qué producto toca, dentro de ese 75%, es proporcional a lo que queda de cada
+Qué producto toca, dentro de ese 80%, es proporcional a lo que queda de cada
 uno: uno con 150 unidades sale 3 veces más seguido que uno con 50. Como cada
 unidad en existencia tiene la misma chance, los 4 productos se gastan al mismo
 ritmo porcentual — ninguno se termina mucho antes que otro. Si igual uno se
-agota, deja de salir y su parte se reparte entre los demás; el 75% total no se
+agota, deja de salir y su parte se reparte entre los demás; el 80% total no se
 mueve.
 
 **El día 1 sólo puede usar la mitad del stock**, la otra mitad queda congelada
@@ -89,16 +89,16 @@ mitad, a partir de ahí todos se llevan Premio Sorpresa — pero el día 2 arran
 con su mitad intacta. El día 2 puede usar todo lo que haya quedado (su mitad
 más lo que sobró del día 1).
 
-Con 300 personas por día esto reparte unos **225 productos por día** (~450 en
-los dos días) y deja ~200 unidades de colchón:
+Con 250 personas por día esto reparte unos **200 productos por día** (~400 en
+los dos días) y deja ~250 unidades de colchón:
 
 | Premio | Por día | En los dos días |
 |-----------------------|:-------:|:---------------:|
-| Mochila (Tridex Zero) | ~17 | ~34 |
-| Botella (LH3) | ~52 | ~104 |
-| Cooler (Surfadex) | ~52 | ~104 |
-| Lapicera (Viodex) | ~104 | ~208 |
-| **Premio Sorpresa** | ~75 | ~150 |
+| Mochila (Tridex Zero) | ~15 | ~31 |
+| Botella (LH3) | ~46 | ~92 |
+| Cooler (Surfadex) | ~46 | ~92 |
+| Lapicera (Viodex) | ~92 | ~185 |
+| **Premio Sorpresa** | ~50 | ~100 |
 
 **El cambio de día es automático:** el equipo mira la fecha y pasa solo al día
 2 cuando cambia el día del calendario. No hay que tocar nada.
@@ -120,8 +120,8 @@ Todo se edita en `prizes.js`:
 - **Cambiar el stock de un producto:** los números en `INITIAL_STOCK`, arriba
   del todo. Ojo: si el equipo ya arrancó el evento, el stock guardado manda
   sobre estos números hasta que alguien corra `Prizes.resetStock()`.
-- **Cambiar cuánta gente se lleva producto:** `PRODUCT_SHARE` (0.75 = 3 de
-  cada 4).
+- **Cambiar cuánta gente se lleva producto:** `PRODUCT_SHARE` (0.80 = 4 de
+  cada 5).
 - **Cambiar nombre/producto de un premio:** `brand` y `product` en cada
   entrada de `PRIZE_DEFS`.
 - **Cambiar el logo:** `logoHTML` — apunta a un archivo de `LOGOS/`. Para

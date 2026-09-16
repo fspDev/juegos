@@ -5,19 +5,19 @@
    ---------------------------------------------------------------------
    CÓMO FUNCIONA EL SORTEO
    ---------------------------------------------------------------------
-   Está calibrado para el evento real: 300 visitantes por día, dos días.
+   Está calibrado para el evento real: 500 visitantes, ~250 por día, dos días.
 
-   1) De cada 4 personas que juegan, 3 se llevan un producto de marca y 1 se
-      lleva el Premio Sorpresa. Ese 75% es fijo (PRODUCT_SHARE) y NO se
+   1) De cada 5 personas que juegan, 4 se llevan un producto de marca y 1 se
+      lleva el Premio Sorpresa. Ese 80% es fijo (PRODUCT_SHARE) y NO se
       desgasta con el correr del día: el último visitante tiene la misma
       chance que el primero.
 
-   2) Qué producto toca, dentro de ese 75%, es proporcional a lo que queda de
+   2) Qué producto toca, dentro de ese 80%, es proporcional a lo que queda de
       cada uno. Un producto con 150 unidades sale 3 veces más seguido que uno
       con 50. Como cada unidad en existencia tiene la misma chance, los cuatro
       productos se van gastando al mismo ritmo porcentual: ninguno se termina
       mucho antes que otro. Si igual uno se agota, deja de salir y su parte se
-      reparte entre los demás — el 75% total no se mueve.
+      reparte entre los demás — el 80% total no se mueve.
 
    3) EL DÍA 1 SÓLO PUEDE USAR LA MITAD DEL STOCK. La otra mitad queda
       congelada para el día 2. Si el día 1 viene mucha más gente de la
@@ -25,8 +25,8 @@
       Sorpresa — pero el día 2 arranca con su mitad intacta. El día 2 puede
       usar todo lo que haya quedado (su mitad + lo que sobró del día 1).
 
-   Con 300 personas por día esto reparte unos 225 productos por día (~450 en
-   total) y deja ~200 unidades de colchón.
+   Con 250 personas por día esto reparte unos 200 productos por día (~400 en
+   total) y deja ~250 unidades de colchón.
 
    ---------------------------------------------------------------------
    EL CAMBIO DE DÍA ES AUTOMÁTICO
@@ -52,7 +52,7 @@
    CÓMO EDITAR
    ---------------------------------------------------------------------
    - Cantidades de cada producto: INITIAL_STOCK.
-   - Cuánta gente se lleva producto: PRODUCT_SHARE (0.75 = 3 de cada 4).
+   - Cuánta gente se lleva producto: PRODUCT_SHARE (0.80 = 4 de cada 5).
    - Nombre o producto de un premio: brand y product en PRIZE_DEFS.
    - Logo: logoHTML apunta a un archivo de LOGOS/.
 
@@ -72,8 +72,8 @@
   };
 
   // Proporción de jugadas que se lleva un producto de marca; el resto se
-  // lleva el Premio Sorpresa. 0.75 = 3 de cada 4 personas.
-  const PRODUCT_SHARE = 0.75;
+  // lleva el Premio Sorpresa. 0.80 = 4 de cada 5 personas.
+  const PRODUCT_SHARE = 0.80;
 
   const PRIZE_DEFS = [
     {
